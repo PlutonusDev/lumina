@@ -11,7 +11,6 @@ const navItems = [
   { label: "Our Vision", href: "#vision" },
   { label: "Portfolio", href: "#portfolio" },
   { label: "Sectors", href: "#sectors" },
-  { label: "Contact", href: "#contact" },
 ]
 
 export function Header() {
