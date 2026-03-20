@@ -1,115 +1,159 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { ExternalLink, GraduationCap, Shield, BookOpen } from "lucide-react"
+import { motion, Variants } from "framer-motion"
+import { ExternalLink, GraduationCap, Shield, BookOpen, ArrowUpRight } from "lucide-react"
 
 export function PortfolioSection() {
+  // Animation variants for staggered children
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.3 }
+    }
+  }
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: 0.8, 
+        ease: [0.16, 1, 0.3, 1] // TS now knows this is a cubic-bezier
+      } 
+    }
+  }
+
   return (
-    <section id="portfolio" className="relative py-32 bg-[#0E192D]">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#E2E8F0]/10 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#E2E8F0]/10 to-transparent" />
+    <section id="portfolio" className="relative py-32 bg-[#090E1A] overflow-hidden">
+      {/* Sophisticated Background Architecture */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-[#D4AF37]/20 to-transparent" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-[#D4AF37]/20 to-transparent" />
+        {/* Subtle Radial Spotlight */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-[#D4AF37]/5 blur-[120px] rounded-full opacity-50" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="max-w-2xl mb-24"
         >
-          <span className="text-[#D4AF37] text-sm tracking-widest uppercase mb-4 block">Featured Venture</span>
-          <h2 className="text-3xl md:text-5xl font-light text-[#E2E8F0] mb-6">Our Portfolio</h2>
-          <div className="w-16 h-px bg-[#D4AF37] mx-auto" />
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-12 h-[1px] bg-[#D4AF37]" />
+            <span className="text-[#D4AF37] text-xs font-bold tracking-[0.3em] uppercase">
+              Featured Venture
+            </span>
+          </div>
+          <h2 className="text-4xl md:text-6xl font-light tracking-tight text-white mb-8">
+            Defining the <span className="italic font-serif">Standard</span> in Aviation.
+          </h2>
+          <p className="text-[#94A3B8] text-lg font-light leading-relaxed">
+            Our portfolio represents a commitment to technical precision and 
+            regulatory excellence within the Australian aerospace sector.
+          </p>
         </motion.div>
 
-        {/* AviPrep Card */}
+        {/* AviPrep Premium Card */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
           className="relative group"
         >
-          {/* Glassmorphism Card */}
-          <div className="relative rounded-2xl border border-[#E2E8F0]/10 bg-[#E2E8F0]/[0.02] backdrop-blur-xl overflow-hidden">
-            {/* Glow effect on hover */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37]/5 to-[#D4AF37]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+          <div className="relative rounded-3xl border border-white/10 bg-white/[0.01] backdrop-blur-2xl overflow-hidden transition-all duration-700 group-hover:border-[#D4AF37]/30 group-hover:bg-white/[0.03]">
+            {/* Animated Gradient Edge */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
             
-            <div className="relative p-8 md:p-12 lg:p-16">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                {/* Content */}
-                <div>
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center">
-                      <GraduationCap className="w-6 h-6 text-[#D4AF37]" />
-                    </div>
+            <div className="relative p-8 md:p-10 lg:p-12">
+              <div className="grid lg:grid-cols-12 gap-16 items-start">
+                
+                {/* Left Side: Content */}
+                <div className="lg:col-span-7">
+                  <motion.div variants={itemVariants} className="flex items-center gap-5 mb-10">
+                    <img src="img/AviPrep-logo.png" className="h-18" />
                     <div>
-                      <h3 className="text-2xl md:text-3xl font-medium text-[#E2E8F0]">AviPrep</h3>
-                      <p className="text-[#D4AF37] text-sm tracking-wide">Flagship Venture</p>
+                      <h3 className="text-3xl font-medium text-white tracking-tight">AviPrep</h3>
+                      <p className="text-[#D4AF37] text-sm font-semibold tracking-widest uppercase mt-1">Foundational Asset</p>
                     </div>
-                  </div>
+                  </motion.div>
 
-                  <p className="text-lg md:text-xl text-[#E2E8F0]/80 leading-relaxed mb-8">
-                    A premier digital learning ecosystem mapped to CASA legislation, 
-                    bridging the gap between theory and flight for individuals and 
-                    accredited institutions.
-                  </p>
+                  <motion.p variants={itemVariants} className="text-xl md:text-2xl text-[#CBD5E1] font-light leading-relaxed mb-10">
+                    A premier digital learning ecosystem meticulously mapped to <span className="text-white font-normal">CASA legislation</span>, 
+                    bridging the gap between complex theory and operational flight for accredited institutions.
+                  </motion.p>
 
-                  <div className="flex flex-wrap gap-3 mb-10">
-                    {["CASA Aligned", "Digital Learning", "Accredited"].map((tag) => (
+                  <motion.div variants={itemVariants} className="flex flex-wrap gap-3 mb-12">
+                    {["CASA Aligned", "LMS Integration", "Enterprise Grade"].map((tag) => (
                       <span
                         key={tag}
-                        className="px-4 py-2 rounded-full border border-[#E2E8F0]/10 bg-[#E2E8F0]/5 text-[#E2E8F0]/70 text-sm"
+                        className="px-5 py-2 rounded-full border border-white/5 bg-white/5 text-[#94A3B8] text-xs font-medium tracking-wide"
                       >
                         {tag}
                       </span>
                     ))}
-                  </div>
+                  </motion.div>
 
-                  <a
-                    href="https://aviprep.com.au/"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#D4AF37] text-[#0E192D] font-medium rounded-lg hover:bg-[#B8972E] transition-colors group/btn"
-                  >
-                    Visit AviPrep
-                    <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                  </a>
+                  <motion.div variants={itemVariants}>
+                    <a
+                      href="https://aviprep.com.au/"
+                      className="inline-flex items-center gap-3 px-8 py-4 bg-white text-[#090E1A] font-semibold rounded-full hover:bg-[#D4AF37] transition-all duration-300 group/btn shadow-xl shadow-black/20"
+                    >
+                      Explore Venture
+                      <ArrowUpRight className="w-5 h-5 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                    </a>
+                  </motion.div>
                 </div>
 
-                {/* Visual/Stats */}
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="p-6 rounded-xl border border-[#E2E8F0]/10 bg-[#E2E8F0]/[0.02]">
-                    <BookOpen className="w-8 h-8 text-[#D4AF37] mb-4" />
-                    <h4 className="text-3xl font-light text-[#E2E8F0] mb-2">100+</h4>
-                    <p className="text-[#E2E8F0]/60 text-sm">Learning Modules</p>
-                  </div>
-                  <div className="p-6 rounded-xl border border-[#E2E8F0]/10 bg-[#E2E8F0]/[0.02]">
-                    <Shield className="w-8 h-8 text-[#D4AF37] mb-4" />
-                    <h4 className="text-3xl font-light text-[#E2E8F0] mb-2">CASA</h4>
-                    <p className="text-[#E2E8F0]/60 text-sm">Part 141 & 142 Compliant</p>
-                  </div>
-                  <div className="col-span-2 p-6 rounded-xl border border-[#E2E8F0]/10 bg-[#E2E8F0]/[0.02]">
-                    <div className="flex items-center justify-between">
+                {/* Right Side: Data Visualization */}
+                <div className="lg:col-span-5 grid grid-cols-2 gap-4">
+                  <motion.div 
+                    variants={itemVariants}
+                    className="p-8 rounded-2xl border border-white/5 bg-[#111827]/50 backdrop-blur-sm"
+                  >
+                    <BookOpen className="w-6 h-6 text-[#D4AF37] mb-6" />
+                    <div className="text-4xl font-light text-white mb-2">210+</div>
+                    <div className="text-[10px] uppercase tracking-[0.2em] text-[#64748B] font-bold">Theory subject courses</div>
+                  </motion.div>
+
+                  <motion.div 
+                    variants={itemVariants}
+                    className="p-8 rounded-2xl border border-white/5 bg-[#111827]/50 backdrop-blur-sm"
+                  >
+                    <Shield className="w-6 h-6 text-[#D4AF37] mb-6" />
+                    <div className="text-4xl font-light text-white mb-2">CASR</div>
+                    <div className="text-[10px] uppercase tracking-[0.2em] text-[#64748B] font-bold">Part 141/142 Compliance</div>
+                  </motion.div>
+
+                  <motion.div 
+                    variants={itemVariants}
+                    className="col-span-2 p-8 rounded-2xl border border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent"
+                  >
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                       <div>
-                        <p className="text-[#E2E8F0]/60 text-sm mb-1">Trusted by</p>
-                        <h4 className="text-2xl font-light text-[#E2E8F0]">Flight Schools Nationwide</h4>
+                        <div className="text-[10px] uppercase tracking-[0.2em] text-[#D4AF37] font-bold mb-2">Operational Reach</div>
+                        <div className="text-xl font-light text-white">National Network Adoption</div>
                       </div>
-                      <div className="flex -space-x-2">
+                      <div className="flex -space-x-3">
                         {[1, 2, 3, 4].map((i) => (
                           <div
                             key={i}
-                            className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 border-2 border-[#0E192D] flex items-center justify-center text-[#D4AF37] text-xs font-medium"
+                            className="w-12 h-12 rounded-full border-4 border-[#090E1A] bg-[#1E293B] flex items-center justify-center text-[10px] font-bold text-[#D4AF37]"
                           >
-                            {i}
+                            0{i}
                           </div>
                         ))}
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
+
               </div>
             </div>
           </div>

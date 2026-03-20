@@ -3,21 +3,22 @@
 import { Logo } from "@/components/logo"
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { MapPin, Mail, Phone, Linkedin, ExternalLink, X } from "lucide-react"
-import { PiXLogo, PiXLogoLight } from "react-icons/pi";
+import { MapPin, Mail, Phone, Linkedin, ExternalLink, X, ArrowUpRight } from "lucide-react"
+import { PiXLogo } from "react-icons/pi";
 
 const footerLinks = {
   company: [
-    { label: "Our Vision", href: "#vision" },
-    { label: "Portfolio", href: "#portfolio" },
-    { label: "Sectors", href: "#sectors" },
-    { label: "Partnerships", href: "#partnerships" },
+    { label: "Our Vision", href: "#vision", external: false },
+    { label: "Portfolio", href: "#portfolio", external: false },
+    { label: "Sectors", href: "#sectors", external: false },
+    { label: "Partnerships", href: "#partnerships", external: false },
+    { label: "Investor Relations", href: "https://investors.luminaaviation.com.au", external: true },
   ],
-  legal: [
-    { label: "Investor Relations", href: "#" },
-    { label: "Compliance", href: "#" },
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" },
+  services: [
+    { label: "AviPrep", href: "/services/aviprep", external: false },
+    { label: "Custom Software", href: "/services/custom-software", external: false },
+    { label: "Compliance Consulting", href: "/services/compliance-consulting", external: false },
+    { label: "Innovation Lab", href: "/services/innovation-lab", external: false },
   ],
 }
 
@@ -42,19 +43,19 @@ export function Footer() {
             {/* Social Links */}
             <div className="flex items-center gap-4">
               <a
-                href="#"
+                href="https://linkedin.com/company/lumina-holdings"
                 className="w-10 h-10 rounded-lg border border-[#E2E8F0]/10 bg-[#E2E8F0]/[0.02] flex items-center justify-center text-[#E2E8F0]/60 hover:text-[#D4AF37] hover:border-[#D4AF37]/30 transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a
+              {/*<a
                 href="#"
                 className="w-10 h-10 rounded-lg border border-[#E2E8F0]/10 bg-[#E2E8F0]/[0.02] flex items-center justify-center text-[#E2E8F0]/60 hover:text-[#D4AF37] hover:border-[#D4AF37]/30 transition-colors"
                 aria-label="LinkedIn"
               >
                 <PiXLogo className="w-5 h-5" />
-              </a>
+              </a>*/}
             </div>
           </motion.div>
 
@@ -65,18 +66,25 @@ export function Footer() {
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            <h4 className="text-[#E2E8F0] font-medium mb-6">Company</h4>
-            <ul className="space-y-4">
+            <h4 className="text-[#E2E8F0] font-medium mb-4">Company</h4>
+            <ul className="space-y-2">
               {footerLinks.company.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-[#E2E8F0]/60 hover:text-[#D4AF37] transition-colors text-sm"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-[#E2E8F0]/60 hover:text-[#D4AF37] transition-colors text-sm flex items-center gap-1 group"
+                      target={link.external ? "_blank" : undefined}
+                      rel={link.external ? "noopener noreferrer" : undefined}
+                    >
+                      {link.label}
+                      {link.external ? (
+                        <ExternalLink className="w-3 h-3" />
+                      ) : (
+                        <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+                      )}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </motion.div>
 
@@ -87,19 +95,25 @@ export function Footer() {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h4 className="text-[#E2E8F0] font-medium mb-6">Legal</h4>
-            <ul className="space-y-4">
-              {footerLinks.legal.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-[#E2E8F0]/60 hover:text-[#D4AF37] transition-colors text-sm flex items-center gap-1"
-                  >
-                    {link.label}
-                    {link.label === "Investor Relations" && <ExternalLink className="w-3 h-3" />}
-                  </Link>
-                </li>
-              ))}
+            <h4 className="text-[#E2E8F0] font-medium mb-4">Services</h4>
+            <ul className="space-y-2">
+              {footerLinks.services.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      target={link.external ? "_blank" : undefined}
+                      rel={link.external ? "noopener noreferrer" : undefined}
+                      className="text-[#E2E8F0]/60 hover:text-[#D4AF37] transition-colors text-sm flex items-center gap-1 group"
+                    >
+                      {link.label}
+                      {link.external ? (
+                        <ExternalLink className="w-3 h-3" />
+                      ) : (
+                        <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+                      )}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </motion.div>
 
@@ -110,7 +124,7 @@ export function Footer() {
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            <h4 className="text-[#E2E8F0] font-medium mb-6">Contact</h4>
+            <h4 className="text-[#E2E8F0] font-medium mb-4">Contact</h4>
             <ul className="space-y-4">
               <li>
                 <div className="flex items-start gap-3 text-[#E2E8F0]/60 text-sm">
@@ -153,8 +167,19 @@ export function Footer() {
               <p>ACN XXX XXX XXX</p>
             </div>
             
-            <div className="text-[#E2E8F0]/40 text-sm">
-              © {new Date().getFullYear()} Lumina Aviation Holdings. All rights reserved.
+            <div className="flex items-center gap-6">
+              <Link href="/compliance" className="text-[#E2E8F0]/40 text-xs hover:text-[#E2E8F0]/60 transition-colors">
+                Compliance
+              </Link>
+              <Link href="/privacy" className="text-[#E2E8F0]/40 text-xs hover:text-[#E2E8F0]/60 transition-colors">
+                Privacy
+              </Link>
+              <Link href="/terms" className="text-[#E2E8F0]/40 text-xs hover:text-[#E2E8F0]/60 transition-colors">
+                Terms
+              </Link>
+              <span className="text-[#E2E8F0]/40 text-xs">
+                © {new Date().getFullYear()} All rights reserved.
+              </span>
             </div>
           </div>
         </div>

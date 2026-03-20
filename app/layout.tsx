@@ -2,6 +2,7 @@ import type { Viewport, Metadata } from 'next'
 import { DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import { SmoothScroll } from '@/components/smooth-scroll';
 
 const dmsans = DM_Sans({ 
   subsets: ["latin"],
@@ -62,7 +63,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${dmsans.className} antialiased`}>
-        {children}
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
         <Analytics />
       </body>
     </html>

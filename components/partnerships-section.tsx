@@ -1,7 +1,8 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { Building2, Handshake, Target, CheckCircle } from "lucide-react"
+import { useRef } from "react"
 
 const benefits = [
   "Standardized curriculum aligned with CASA requirements",
@@ -13,13 +14,33 @@ const benefits = [
 ]
 
 export function PartnershipsSection() {
+  const containerRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  })
+  
+  const x = useTransform(scrollYProgress, [0, 1], [-50, 50])
+  
   return (
-    <section className="relative py-32 bg-[#0E192D]">
-      {/* Background Effects */}
+    <section ref={containerRef} className="relative py-32 bg-[#0E192D]">
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#E2E8F0]/10 to-transparent" />
-        {/* Subtle glow */}
-        <div className="absolute bottom-0 right-0 w-[600px] h-[400px] bg-[#D4AF37]/3 rounded-full blur-[150px]" />
+        
+        {/* Animated gradient */}
+        <motion.div
+          style={{ x }}
+          className="absolute bottom-0 right-0 w-[800px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-[180px]"
+        />
+        
+        {/* Grid overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `linear-gradient(#E2E8F0 1px, transparent 1px), linear-gradient(90deg, #E2E8F0 1px, transparent 1px)`,
+            backgroundSize: '60px 60px'
+          }}
+        />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
